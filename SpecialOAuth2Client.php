@@ -150,7 +150,14 @@ class SpecialOAuth2Client extends SpecialPage {
 			throw new MWException('Could not create user with username:' . $username);
 			die();
 		}
-		$user->setRealName($username);
+		if (isset($wgOAuth2Client['configuration']['real_name'])) {
+			$real_name = $response['user'][$wgOAuth2Client['configuration']['real_name']];
+		} elseif (isset($wgOAuth2Client['configuration']['first_name']) && isset($wgOAuth2Client['configuration']['last_name'])) {
+			$real_name = $response['user'][$wgOAuth2Client['configuration']['first_name']] . ' ' . $response['user'][$wgOAuth2Client['configuration']['last_name']];
+		} else {
+			$real_name = $username;
+		}
+		$user->setRealName($real_name);
 		$user->setEmail($email);
 		$user->load();
 		if ( !( $user instanceof User && $user->getId() ) ) {

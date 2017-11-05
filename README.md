@@ -36,6 +36,17 @@ $wgOAuth2Client['configuration']['username'] = 'username'; // JSON path to usern
 $wgOAuth2Client['configuration']['email'] = 'email'; // JSON path to email
 ```
 
+The user's real name will be set to the username by default.
+Depending on what you get from your backend, you may also want to configure:
+```
+$wgOAuth2Client['configuration']['real_name'] = 'realname'; // JSON path to real name
+```
+or:
+```
+$wgOAuth2Client['configuration']['first_name'] = 'first_name'; // JSON path to first name
+$wgOAuth2Client['configuration']['last_name'] = 'last_name'; // JSON path to last name
+```
+
 The **Redirect URI** for your wiki should be:
 
 ```
