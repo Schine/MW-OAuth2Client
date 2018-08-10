@@ -17,6 +17,7 @@
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This is a MediaWiki extension, and must be run from within MediaWiki.' );
 }
+require __DIR__.'/JsonHelper.php';
 
 class SpecialOAuth2Client extends SpecialPage {
 
@@ -142,8 +143,8 @@ class SpecialOAuth2Client extends SpecialPage {
 	protected function _userHandling( $response ) {
 		global $wgOAuth2Client, $wgAuth, $wgRequest;
 
-		$username = $response['user'][$wgOAuth2Client['configuration']['username']];
-		$email = $response['user'][$wgOAuth2Client['configuration']['email']];
+		$username = JsonHelper::extractValue($response, $wgOAuth2Client['configuration']['username']);
+		$email =  JsonHelper::extractValue($response, $wgOAuth2Client['configuration']['email']);
 
 		$user = User::newFromName($username, 'creatable');
 		if (!$user) {

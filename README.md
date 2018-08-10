@@ -36,6 +36,30 @@ $wgOAuth2Client['configuration']['username'] = 'username'; // JSON path to usern
 $wgOAuth2Client['configuration']['email'] = 'email'; // JSON path to email
 ```
 
+The JSON path should be set to point to the appropriate attributes in the JSON.
+
+If the properties you want from your JSON object are nested, you can use periods.
+
+For example, if user JSON is
+
+```
+{
+    "user": {
+        "username": "my username",
+        "email": "my email"
+    }
+}
+```
+
+Then your JSON path configuration should be these
+
+```
+$wgOAuth2Client['configuration']['username'] = 'user.username'; // JSON path to username
+$wgOAuth2Client['configuration']['email'] = 'user.email'; // JSON path to email
+```
+
+You can see [Json Helper Test case](./tests/phpunit/JsonHelperTest.php) for more.
+
 The **Redirect URI** for your wiki should be:
 
 ```
