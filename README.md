@@ -76,6 +76,11 @@ $wgOAuth2Client['configuration']['scopes'] = 'read_citizen_info'; //Permissions
 $wgOAuth2Client['configuration']['service_name'] = 'Citizen Registry'; // the name of your service
 $wgOAuth2Client['configuration']['service_login_link_text'] = 'Login with StarMade'; // the text of the login link
 
+$wgOAuth2Client['configuration']['group'] = 'group.id'; // JSON path to group id, if set group_mapping is also required
+$wgOAuth2Client['configuration']['group_mapping'] = array(
+	1 => 'sysop'
+); // Give users with group id 1 the mediawiki group 'sysop'
+
 ```
 
 Optional Authorization Callback

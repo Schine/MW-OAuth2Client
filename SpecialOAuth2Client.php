@@ -192,6 +192,18 @@ class SpecialOAuth2Client extends SpecialPage {
 		}
 		$user->setToken();
 
+		// Assign group if configured
+		if(array_key_exists('group', $wgOAuth2Client['configuration'])) {
+			$group = JsonHelper::extractValue($response, $wgOAuth2Client['configuration']['group']);
+			// Lookup if this group is mapped
+			if(array_key_exists($group, $wgOAuth2Client['configuration']['group_mapping'])) {
+				$wikiGroup = $wgOAuth2Client['configuration']['group_mapping'][$group];
+				if(!in_array($wikiGroup, $user->getGroups())) {
+					$user->addGroup($wikiGroup);
+				}
+			}
+		}
+
 		// Setup the session
 		$wgRequest->getSession()->persist();
 		$user->setCookies();
